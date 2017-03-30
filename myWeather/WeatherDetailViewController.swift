@@ -28,6 +28,8 @@ class WeatherDetailViewController: UIPageViewController, UIPageViewControllerDel
         pageControl.currentPageIndicatorTintColor = UIColor.black
         pageControl.backgroundColor = UIColor.black
         
+        
+        //Make Call to Weather API on background thread
         DispatchQueue.global(qos: .background).async {
             
             guard self.city != nil else{
@@ -37,6 +39,8 @@ class WeatherDetailViewController: UIPageViewController, UIPageViewControllerDel
             
             switch weatherData{
             case .success(let current, let weatherArray) :
+                
+                //Push result on main thread
                 DispatchQueue.main.async {
                     // qos' default value is ´DispatchQoS.QoSClass.default`
                     let vc = self.viewControllers?.first as? WeatherContentDetailPageViewController

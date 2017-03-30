@@ -13,7 +13,7 @@
 
     typealias WeatherTuple = (currentCondition: CurrentCondition?, Weather: [Weather?])
 
-
+//MARK: Error Condition enum
     enum WeatherError: Error {
         case requestFailed
         case noData
@@ -21,6 +21,7 @@
         case parsingFailed
     }
 
+//MARK: Weather Result Enum
     enum WeatherResult {
         case success(WeatherTuple)
         case failure(WeatherError)
@@ -29,8 +30,8 @@
     class WebServiceClient{
         static let sharedInstance = WebServiceClient()
         let session = URLSession.shared
-        //API and base URL Path for Weather API
         
+        //API and base URL Path for Weather API
         fileprivate let APIKey = "c4bbaea3c1c44601a9785657172903"
         fileprivate let baseURLPath = "https://api.worldweatheronline.com/premium/v1/weather.ashx?"
         
@@ -44,7 +45,7 @@
         }
         
         
-        
+        //Instance Method to fetch weather condition for city
         func weather(city: String, completion: @escaping WeatherCompletion) {
             session.dataTask(with: weatherURL(city:city)) { data, URLResponse, requestError in
                 guard let data = data else {
@@ -75,6 +76,7 @@
                 }.resume()
         }
         
+        //Parse Succes Result from Dictionary and Create Model classes
         private func parse(_ payload: JSONDictionary) -> WeatherTuple? {
             
             

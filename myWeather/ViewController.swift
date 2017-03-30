@@ -20,15 +20,12 @@
             super.viewDidLoad()
             // Do any additional setup after loading the view, typically from a nib.
             cityTableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
-            guard (UserDefaults.standard.object(forKey: "CityNames") as? Array<Any>) != nil
-                else {
-                return
-            }
-            cityNameArray = UserDefaults.standard.object(forKey: "CityNames") as! [String]
         }
         override func viewDidAppear(_ animated: Bool) {
             super.viewDidAppear(animated)
             citySearch.text = ""
+            
+            //MARK: Get Recent City Search from UserDefaults
             guard (UserDefaults.standard.object(forKey: "CityNames") as? Array<Any>) != nil
                 else {
                     return
@@ -41,6 +38,7 @@
             // Dispose of any resources that can be recreated.
         }
 
+        //MARK: Search Bar Delegate Method
         func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
             let vc = self.storyboard?.instantiateViewController(withIdentifier: "weatherDetailID") as? WeatherDetailViewController
             vc!.city = searchBar.text!
@@ -50,6 +48,9 @@
         }
 
 
+        
+        
+        //MARK: TableView Delegate Methods
         let cellReuseIdentifier = "customCityCell"
 
         // number of rows in table view
@@ -79,7 +80,10 @@
         }
 
     }
+
     extension ViewController{
+        
+        //MARK: City Name persisted in User Defaults
         func savetoUserDefault(city : String)  {
             let defaults = UserDefaults.standard
             

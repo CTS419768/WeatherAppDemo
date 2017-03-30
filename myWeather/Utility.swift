@@ -10,7 +10,7 @@
     import UIKit
 
     class Utility{
-        
+        // Method to get Day of week from Date
         static func getDayOfWeek(_ today:String) -> String? {
             let formatter  = DateFormatter()
             formatter.dateFormat = "yyyy-MM-dd"
@@ -39,7 +39,9 @@
         }
     }
 
-    extension UIImageView {
+    
+    // MARK: UIImageview extension to asynchronously download image and update it
+extension UIImageView {
         public func imageFromServerURL(urlString: String) {
             
             URLSession.shared.dataTask(with: NSURL(string: urlString)! as URL, completionHandler: { (data, response, error) -> Void in
@@ -54,4 +56,4 @@
                 })
                 
             }).resume()
-        }}
+}}
