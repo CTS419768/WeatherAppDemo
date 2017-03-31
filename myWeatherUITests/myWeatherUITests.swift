@@ -28,9 +28,34 @@ class myWeatherUITests: XCTestCase {
         super.tearDown()
     }
     
-    func testExample() {
+    func testSearch() {
         // Use recording to get started writing UI tests.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
+
+        
+        let app = XCUIApplication()
+        
+        
+        let element = app.otherElements.containing(.navigationBar, identifier:"Weather App").children(matching: .other).element.children(matching: .other).element.children(matching: .other).element
+        element.children(matching: .other).element(boundBy: 0).children(matching: .searchField).element.tap()
+        
+        element.children(matching: .other).element(boundBy: 0).children(matching: .searchField).element.typeText("Pune")
+
+        app.typeText("\n")
+        
     }
-    
+    func testCitySelection()  {
+        XCUIApplication().tables.children(matching: .cell).element(boundBy: 1).staticTexts["Pune"].tap()
+        
+    }
+    func testSwipeFunctionality() {
+        
+        let app = XCUIApplication()
+        app.tables.children(matching: .cell).element(boundBy: 1).staticTexts["Pune"].tap()
+        
+        let element = app.otherElements.containing(.navigationBar, identifier:"myWeather.WeatherDetailView").children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element(boundBy: 1).children(matching: .other).element(boundBy: 1)
+        element.swipeLeft()
+        app.navigationBars["myWeather.WeatherDetailView"].buttons["Weather App"].tap()
+        
+    }
 }
